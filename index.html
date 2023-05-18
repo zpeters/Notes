@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Note Taking App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css">
   <style>
     body {
@@ -15,7 +16,7 @@
     }
     
     .container {
-      max-width: 600px; /* Increased container width */
+      max-width: 600px;
       padding: 20px;
       background-color: #282d32; /* Dark container background color */
       border-radius: 8px;
@@ -24,13 +25,15 @@
 
     .container h1 {
       color: #fff; /* White text color */
+      font-size: 24px;
+      margin-bottom: 20px;
     }
 
     .container textarea {
       background-color: #495057; /* Dark textarea background color */
       color: #fff; /* White text color */
-      height: 200px; /* Increased textarea height */
-      resize: vertical; /* Allow vertical resizing */
+      height: 150px;
+      resize: none;
     }
   </style>
 </head>
