@@ -11,28 +11,34 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: #ffffff; /* White background color */
-      font-family: Arial, sans-serif;
+      background-color: #282a36; /* Dracula Pro background color */
+      font-family: 'Courier New', Courier, monospace;
     }
     
     .notepad {
-      max-width: 600px;
+      max-width: 800px;
       padding: 10px;
-      background-color: #f6f6f6; /* Light gray background color */
-      border: 1px solid #ccc; /* Light gray border */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      background-color: #282a36; /* Dracula Pro background color */
+      border: 1px solid #44475a; /* Dracula Pro border color */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     }
 
     .title-bar {
       display: flex;
       align-items: center;
-      background-color: #f0f0f0; /* Light gray background color */
-      padding: 3px;
-      border-bottom: 1px solid #ccc; /* Light gray border */
+      background-color: #21222c; /* Dracula Pro title bar background color */
+      padding: 5px;
+      border-bottom: 1px solid #44475a; /* Dracula Pro title bar border color */
+    }
+
+    .title-bar .window-title {
+      color: #f8f8f2; /* Dracula Pro title bar text color */
+      flex-grow: 1;
+      margin-left: 10px;
     }
 
     .title-bar .window-controls {
-      margin-left: auto;
+      margin-left: 5px;
     }
 
     .title-bar .window-controls button {
@@ -45,18 +51,28 @@
       cursor: pointer;
     }
 
+    .title-bar .window-controls button.minimize {
+      color: #6272a4; /* Dracula Pro minimize button color */
+    }
+
+    .title-bar .window-controls button.maximize {
+      color: #6272a4; /* Dracula Pro maximize button color */
+    }
+
     .title-bar .window-controls button.close {
-      color: #ff3b3b; /* Red close button color */
+      color: #ff5555; /* Dracula Pro close button color */
     }
 
     .editor {
       height: 300px;
-      background-color: #ffffff; /* White background color */
+      background-color: #1e1f29; /* Dracula Pro editor background color */
+      color: #f8f8f2; /* Dracula Pro editor text color */
       border: none;
-      resize: vertical;
+      resize: none;
       padding: 5px;
       font-size: 14px;
       line-height: 1.4;
+      overflow: auto;
     }
   </style>
 </head>
@@ -66,7 +82,7 @@
       <div class="window-title">Untitled - Notepad</div>
       <div class="window-controls">
         <button class="minimize"><i class="fas fa-window-minimize"></i></button>
-        <button class="maximize"><i class="fas fa-window-maximize"></i></button>
+        <button class="maximize"><i class="fas fa-expand"></i></button>
         <button class="close"><i class="fas fa-times"></i></button>
       </div>
     </div>
@@ -86,6 +102,26 @@
     noteInput.addEventListener('input', function() {
       const note = this.value;
       localStorage.setItem('note', note);
+    });
+
+    const minimizeButton = document.querySelector('.minimize');
+    const maximizeButton = document.querySelector('.maximize');
+    const closeButton = document.querySelector('.close');
+
+    minimizeButton.addEventListener('click', function() {
+      noteInput.style.display = 'none';
+    });
+
+    maximizeButton.addEventListener('click', function() {
+      noteInput.style.display = 'block';
+      noteInput.style.width = '100%';
+      noteInput.style.height = '100vh';
+      noteInput.style.resize = 'none';
+    });
+
+    closeButton.addEventListener('click', function() {
+      noteInput.value = '';
+      localStorage.removeItem('note');
     });
   </script>
 </body>
