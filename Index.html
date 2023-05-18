@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Note Taking App</title>
+</head>
+<body>
+  <h1>Note Taking App</h1>
+  <input type="text" id="noteInput" placeholder="Enter your note">
+
+  <script>
+    // Retrieve note from Local Storage (if available)
+    const storedNote = localStorage.getItem('note');
+    if (storedNote) {
+      document.getElementById('noteInput').value = storedNote;
+    }
+
+    // Event listener for input change
+    document.getElementById('noteInput').addEventListener('input', function() {
+      const note = this.value;
+      localStorage.setItem('note', note);
+    });
+  </script>
+</body>
+</html>
