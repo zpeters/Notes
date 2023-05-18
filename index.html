@@ -35,6 +35,9 @@
       color: #f8f8f2; /* Dracula Pro title bar text color */
       flex-grow: 1;
       margin-left: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .title-bar .window-controls {
@@ -63,26 +66,24 @@
       color: #ff5555; /* Dracula Pro close button color */
     }
 
-  .editor {
-    width: 100%; /* Set the width to 100% to make it wider */
-    height: 300px;
-    background-color: #1e1f29; /* Dracula Pro editor background color */
-    color: #f8f8f2; /* Dracula Pro editor text color */
-    border: none;
-    resize: none;
-    padding: 5px;
-    font-size: 14px;
-    line-height: 1.4;
-    overflow: auto;
-  }
-</style>
-
-  
+    .editor {
+      width: 100%; /* Set the width to 100% to make it wider */
+      height: 300px;
+      background-color: #1e1f29; /* Dracula Pro editor background color */
+      color: #f8f8f2; /* Dracula Pro editor text color */
+      border: none;
+      resize: none;
+      padding: 5px;
+      font-size: 14px;
+      line-height: 1.4;
+      overflow: auto;
+    }
+  </style>
 </head>
 <body>
   <div class="notepad">
     <div class="title-bar">
-      <div class="window-title">Untitled - Notepad</div>
+      <div class="window-title" id="windowTitle">Untitled - Notepad</div>
       <div class="window-controls">
         <button class="minimize"><i class="fas fa-window-minimize"></i></button>
         <button class="maximize"><i class="fas fa-expand"></i></button>
@@ -93,62 +94,28 @@
   </div>
   <script>
     const noteInput = document.getElementById('noteInput');
-    const notepad = document.querySelector('.notepad');
-    const titleBar = document.querySelector('.title-bar');
+    const windowTitle = document.getElementById('windowTitle');
 
     // Retrieve note from Local Storage (if available)
     const storedNote = localStorage.getItem('note');
     if (storedNote) {
       noteInput.value = storedNote;
+      updateWindowTitle(storedNote);
     }
 
     // Event listener for input change
     noteInput.addEventListener('input', function() {
       const note = this.value;
       localStorage.setItem('note', note);
+      updateWindowTitle(note);
     });
 
-    const minimizeButton = document.querySelector('.minimize');
-    const maximizeButton = document.querySelector('.maximize');
-    const closeButton = document.querySelector('.close');
-
-    let isMinimized = false;
-    let isMaximized = false;
-    let prevHeight = '';
-
-    minimizeButton.addEventListener('click', function() {
-      if (isMinimized) {
-        noteInput.style.display = 'block';
-        notepad.style.height = prevHeight;
-        titleBar.style.cursor = 'default';
-      } else {
-        noteInput.style.display = 'none';
-        prevHeight = notepad.style.height;
-        notepad.style.height = titleBar.offsetHeight + 'px';
-        titleBar.style.cursor = 'move';
-      }
-
-      isMinimized = !isMinimized;
-    });
-
-    maximizeButton.addEventListener('click', function() {
-      if (isMaximized) {
-        notepad.style.width = '800px';
-        notepad.style.height = 'auto';
-        titleBar.style.cursor = 'default';
-      } else {
-        notepad.style.width = '100%';
-        notepad.style.height = '100vh';
-        titleBar.style.cursor = 'move';
-      }
-
-      isMaximized = !isMaximized;
-    });
-
-    closeButton.addEventListener('click', function() {
-      noteInput.value = '';
-      localStorage.removeItem('note');
-    });
+    // Function to update the window title
+    function updateWindowTitle(note) {
+      const truncatedTitle = note.substr(0, 18);
+      const title = truncatedTitle || 'Untitled';
+      windowTitle.textContent = title + ' - Notepad';
+    }
   </script>
   </body>
 </html>
