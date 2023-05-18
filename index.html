@@ -62,7 +62,6 @@
     .title-bar .window-controls button.close {
       color: #ff5555; /* Dracula Pro close button color */
     }
-
     .editor {
       height: 300px;
       background-color: #1e1f29; /* Dracula Pro editor background color */
@@ -88,9 +87,10 @@
     </div>
     <textarea class="editor" id="noteInput" placeholder="Enter your note"></textarea>
   </div>
-
   <script>
     const noteInput = document.getElementById('noteInput');
+    const notepad = document.querySelector('.notepad');
+    const titleBar = document.querySelector('.title-bar');
 
     // Retrieve note from Local Storage (if available)
     const storedNote = localStorage.getItem('note');
@@ -108,15 +108,37 @@
     const maximizeButton = document.querySelector('.maximize');
     const closeButton = document.querySelector('.close');
 
+    let isMinimized = false;
+    let isMaximized = false;
+    let prevHeight = '';
+
     minimizeButton.addEventListener('click', function() {
-      noteInput.style.display = 'none';
+      if (isMinimized) {
+        noteInput.style.display = 'block';
+        notepad.style.height = prevHeight;
+        titleBar.style.cursor = 'default';
+      } else {
+        noteInput.style.display = 'none';
+        prevHeight = notepad.style.height;
+        notepad.style.height = titleBar.offsetHeight + 'px';
+        titleBar.style.cursor = 'move';
+      }
+
+      isMinimized = !isMinimized;
     });
 
     maximizeButton.addEventListener('click', function() {
-      noteInput.style.display = 'block';
-      noteInput.style.width = '100%';
-      noteInput.style.height = '100vh';
-      noteInput.style.resize = 'none';
+      if (isMaximized) {
+        notepad.style.width = '800px';
+        notepad.style.height = 'auto';
+        titleBar.style.cursor = 'default';
+      } else {
+        notepad.style.width = '100%';
+        notepad.style.height = '100vh';
+        titleBar.style.cursor = 'move';
+      }
+
+      isMaximized = !isMaximized;
     });
 
     closeButton.addEventListener('click', function() {
@@ -124,5 +146,5 @@
       localStorage.removeItem('note');
     });
   </script>
-</body>
+  </body>
 </html>
