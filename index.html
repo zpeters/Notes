@@ -3,7 +3,7 @@
 <head>
   <title>Note Taking App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     body {
       display: flex;
@@ -11,41 +11,66 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: #f2f2f2; /* Light background color */
+      background-color: #ffffff; /* White background color */
       font-family: Arial, sans-serif;
     }
     
-    .container {
+    .notepad {
       max-width: 600px;
-      padding: 20px;
-      background-color: #fff; /* White container background color */
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .container h1 {
-      color: #333; /* Dark text color */
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-
-    .container textarea {
-      background-color: #fff; /* White textarea background color */
-      color: #333; /* Dark text color */
-      border: 1px solid #ccc; /* Light border color */
       padding: 10px;
-      font-size: 16px;
-      border-radius: 4px;
-      width: 100%;
+      background-color: #f6f6f6; /* Light gray background color */
+      border: 1px solid #ccc; /* Light gray border */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .title-bar {
+      display: flex;
+      align-items: center;
+      background-color: #f0f0f0; /* Light gray background color */
+      padding: 3px;
+      border-bottom: 1px solid #ccc; /* Light gray border */
+    }
+
+    .title-bar .window-controls {
+      margin-left: auto;
+    }
+
+    .title-bar .window-controls button {
+      width: 16px;
+      height: 16px;
+      margin-left: 5px;
+      border: none;
+      border-radius: 50%;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    .title-bar .window-controls button.close {
+      color: #ff3b3b; /* Red close button color */
+    }
+
+    .editor {
       height: 300px;
+      background-color: #ffffff; /* White background color */
+      border: none;
       resize: vertical;
+      padding: 5px;
+      font-size: 14px;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="title has-text-centered">Note Taking App</h1>
-    <textarea class="textarea" id="noteInput" placeholder="Enter your note"></textarea>
+  <div class="notepad">
+    <div class="title-bar">
+      <div class="window-title">Untitled - Notepad</div>
+      <div class="window-controls">
+        <button class="minimize"><i class="fas fa-window-minimize"></i></button>
+        <button class="maximize"><i class="fas fa-window-maximize"></i></button>
+        <button class="close"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+    <textarea class="editor" id="noteInput" placeholder="Enter your note"></textarea>
   </div>
 
   <script>
